@@ -44,39 +44,15 @@ public class Jsoupp {
 			String[] list = readFromFile(fileName);
 			
 			for (int i = 0; i < list.length; i++) {
-				System.out.print(list[i]);
 				String html = "http://qpublic5.qpublic.net/sc_display2.php?county=sc_edgefield&KEY="+list[i];
-				Connection conn = Jsoup.connect(html);
-				conn.userAgent("Mozilla/5.0");
+				
+				Connection  conn = Jsoup.connect(html);
+					conn.userAgent("Mozilla/5.0");
+				
 				Document doc = conn.get();
 				
-			//	System.out.println(doc);
 				System.out.println(doc.getElementsByClass("tax_value").text().trim()); 
 			}
-			
-			for (String s : list) {
-				//System.out.println(s);
-//				//System.out.println(html);
-//				
-//					
-//			
-			}
-//			   
-//	
-//			String html = "http://qpublic5.qpublic.net/sc_display2.php?county=sc_edgefield&KEY=116-11-01-027-000";
-//			System.out.println(html);
-//			Connection conn = Jsoup.connect(html);
-//				conn.userAgent("Mozilla/5.0");
-//				Document doc = conn.get();
-//			//System.out.println(doc);
-//			System.out.println(doc.getElementsByClass("tax_value").text()); 
-				
-//			Elements element = document.getElementsByClass("tax_value");
-//			for (Element e : element) {
-//		System.out.println(e.text());
-//				
-//			}
-//			//System.out.println(element.text());
 	}
 
 }

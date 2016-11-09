@@ -1,9 +1,9 @@
 package Jsoup;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.LineNumberReader;
 import java.util.Scanner;
 
 import org.jsoup.Connection;
@@ -12,17 +12,22 @@ import org.jsoup.nodes.Document;
 
 public class Jsoupp {
 	
-	private static String[] readFile(String fileName) {
-		
+	private static String[] readFromFile(String fileName) {
 	       try {
+	    	   
 	    	 File file = new File(fileName);
 	         Scanner scanner = new Scanner(file);
+
+	         LineNumberReader lnr = new LineNumberReader(new FileReader(file));
+	         lnr.skip(Long.MAX_VALUE);
+	         int lengthOfList = lnr.getLineNumber()+1;//+1 for starting from 0
+	         lnr.close();//resource leak
+
+	         String[] list = new String[lengthOfList];
 	         int i = 0;
-	         String[] list = new String[750];
 	         while (scanner.hasNextLine()) {
 	        	list[i] = scanner.nextLine();
 	        	i++;
-	        	// System.out.println();
 	         }
 	         scanner.close();
 	      return list;
@@ -30,13 +35,13 @@ public class Jsoupp {
 	         e.printStackTrace();
 	       }
 		return null;
-	     }
+	}
 
 	public static void main(String[] args) throws IOException {
 		
 		
 			String fileName = "src/data.txt";
-			String[] list = readFile(fileName);
+			String[] list = readFromFile(fileName);
 			
 			for (int i = 0; i < list.length; i++) {
 				System.out.print(list[i]);
